@@ -6,6 +6,7 @@ class Solution {
         int map[]=new int[26];
         for(char x : s.toCharArray()){
             map[x-'a']++;
+          
         }
         for(char x : t.toCharArray()){
             map[x-'a']--;
