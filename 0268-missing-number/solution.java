@@ -1,15 +1,12 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        int n = nums.length;
-        int[] v = new int[n+1];
-        Arrays.fill(v, -1);
-        for(int i = 0; i < nums.length; i++) {
-            v[nums[i]] = nums[i];
+        int s1=0,s2=0;
+        for(int i=0;i<=nums.length;i++){
+            s1+=i;
         }
-        for(int i = 0; i < v.length; i++) {
-            if(v[i] == -1) return i;
+        for(int i=0;i<nums.length;i++){
+            s2+=nums[i];
         }
-        return 0;
+        return s1-s2;
     }
 }
-
