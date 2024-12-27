@@ -1,37 +1,32 @@
 class Solution {
-    public int trap(int[] nums) {
-        int n = nums.length;
-        int[] lt = new int[n];
-        int[] rt = new int[n];
-        int[] ans = new int[n];
-        int maxl=nums[0];
-        int maxr=nums[n-1];
+    public int trap(int[] h) {
+        int n=h.length;
+        int rt[]=new int[n];
+        int lt[]=new int[n];
+        int mr=h[n-1];
+        int ml=h[0];
+        int ans[]=new int[n];
         int s1=0,s2=0;
-
         for(int i=0;i<n;i++){
-            if(nums[i]>maxl){
-                maxl=nums[i];
+            if(h[i]>ml){
+                ml=h[i];
             }
-            lt[i]=maxl;
-
+            lt[i]=ml;
         }
         for(int i=n-1;i>=0;i--){
-            if(nums[i]>maxr){
-                maxr=nums[i];
+            if(h[i]>mr){
+                mr=h[i];
             }
-            rt[i]=maxr;
+            rt[i]=mr;
         }
         for(int i=0;i<n;i++){
             ans[i]=Math.min(lt[i],rt[i]);
         }
         for(int i=0;i<n;i++){
             s1+=ans[i];
-            s2+=nums[i];
+            s2+=h[i];
         }
-        
-
-
         return s1-s2;
-        
+
     }
 }
