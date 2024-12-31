@@ -9,45 +9,53 @@
  * }
  */
 class Solution {
-
-    ListNode merge2Lists(ListNode l1, ListNode l2) {
-        if(l1 == null)
-            return l2;
-        if(l2 == null)
-            return l1;
-        ListNode sentinel = new ListNode(-1), ptr = sentinel;
-        while(l1 != null && l2 != null) {
-            if(l1.val <= l2.val) {
-                ptr.next = l1;
-                l1 = l1.next;
+    public ListNode merge(ListNode list1, ListNode list2) {
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+        ListNode curr = null;
+        ListNode ans = null;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                if (ans == null) {
+                    ans = list1;
+                    curr = list1;
+                    list1 = list1.next;
+                } else {
+                    curr.next = list1;
+                    curr = list1;
+                    list1 = list1.next;
+                }
             } else {
-                ptr.next = l2;
-                l2 = l2.next;
+                if (ans == null) {
+                    ans = list2;
+                    curr = list2;
+                    list2 = list2.next;
+                } else {
+                    curr.next = list2;
+                    curr = list2;
+                    list2 = list2.next;
+                }
             }
-            ptr = ptr.next;
         }
-        if(l1 != null)
-            ptr.next = l1;
-        else if(l2 != null)
-            ptr.next = l2;
-        return sentinel.next;
+        if (list1 != null) {
+            curr.next = list1;
+        }
+        if (list2 != null) {
+            curr.next = list2;
+        }
+        return ans;
     }
-
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists == null || lists.length == 0)
-            return null;
-        int end = lists.length-1;
-
-        while(end != 0) {
-            int l = 0, r = end;
-            while(l < r) {
-                lists[l] = merge2Lists(lists[l], lists[r]);
-                l++;
-                r--;
-            }
-            end = r;
+        int n= lists.length;
+        ListNode first = null;
+        for(int i=0;i<n;i++){
+            first=merge(first,lists[i]);
         }
-
-        return lists[0];
+        return first;
+        
     }
 }
