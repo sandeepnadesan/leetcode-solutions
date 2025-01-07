@@ -1,31 +1,25 @@
 class Solution {
     public int myAtoi(String s) {
-        int ans=0;
-        int i=0;
-        int sign=1;
-        int max=Integer.MAX_VALUE;
-        int min=Integer.MIN_VALUE;
-        if(s.length()==0){
-            return 0;
-        }
-        while(i<s.length() && s.charAt(i)==' '){
+        int n = s.length();
+        if (n == 0) return 0;
+        int i = 0;
+        while (i < n && s.charAt(i) == ' ') i++;
+        if (i == n) return 0;
+        int sign = 1;
+        if (s.charAt(i) == '-' || s.charAt(i) == '+') 
+        {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
             i++;
         }
-
-    if(i<s.length() && (s.charAt(i)=='-'|| s.charAt(i)=='+')){
-        if(s.charAt(i)=='-'){
-            sign=-1;
-        }
-        i++;
-    }
-        while(i<s.length() && s.charAt(i)-'0'<=9 && s.charAt(i)-'0'>=0){
-            int digit = s.charAt(i)-'0';
-            if(ans>max/10 || (ans==max/10 && digit>max%10)){
-                return (sign == 1) ? max : min;            
-            }
-            ans=ans*10+digit;
+        long ans = 0;
+        int maxi = Integer.MAX_VALUE, mini = Integer.MIN_VALUE;
+        while (i < n && Character.isDigit(s.charAt(i))) 
+        {
+            ans = ans * 10 + (s.charAt(i) - '0');
+            if (sign == 1 && ans > maxi) return maxi;
+            if (sign == -1 && -1 * ans < mini) return mini;
             i++;
         }
-        return ans*sign;
+        return sign*(int)(ans);
     }
 }
